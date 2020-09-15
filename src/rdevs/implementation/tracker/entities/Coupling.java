@@ -1,4 +1,4 @@
-package rdevs.entities;
+package rdevs.implementation.tracker.entities;
 
 public class Coupling {
 	OutputPort origin;
@@ -7,6 +7,8 @@ public class Coupling {
 	public Coupling(OutputPort op, InputPort ip) {
 		this.origin = op;
 		this.end = ip;
+		origin.addCoupling(this);//Ambos puertos tienen una lista para llevar
+		end.addCoupling(this);	// registro de los Couplings pertenecientes 
 	}
 
 	public OutputPort getOrigin() {
