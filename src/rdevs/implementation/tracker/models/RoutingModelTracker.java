@@ -1,7 +1,14 @@
 package rdevs.implementation.tracker.models;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import rdevs.implementation.tracker.entities.Event;
 import rdevs.implementation.tracker.entities.InputPort;
 import rdevs.implementation.tracker.entities.OutputPort;
+import rdevs.implementation.tracker.enums.TypeEvent;
 
 public class RoutingModelTracker {
 	
@@ -23,25 +30,36 @@ public class RoutingModelTracker {
 		entrance.setRm(this);
 	}
 
-	//TODO Mateo agrego este método fijate luego si te parece útil dejarlo para referenciar trackers.
+
 	public void addNetworkModelReference(NetworkModelTracker networkModelTracker) {
 		this.NModel = networkModelTracker;
 	}
 	
-	//TODO Mateo: Agrego este método para poder probar.
+
 	public void showData() {
 		System.out.println("ROUTING MODEL TRACKER");
 		System.out.println("Name: " + this.name);
 		System.out.println("ID: " + this.id);
 		System.out.println("Embeds EM: " + this.EModel.getName());
+		this.showOutputEvents();
 	}
 
-	//TODO Mateo: Agrego este método para poder probar.
+	/*
+	 * Este método debería mostrar renglón a renglón los eventos que han salido desde este
+	 * routing tracker, con toda su información.
+	 */
+	private void showOutputEvents() {
+		System.out.println("OutPutEvents---------------------");
+		for(Event event : this.exit.getEvents()) {
+			System.out.println("Event Type: "+ event.getType()+" | From: "+ this.getNameAndID() +" --------> To: "+ event.getTarget().getRm().getNameAndID());
+		}
+	}
+	
 	public EssentialModelInstanceTracker getEssentialModelInstance() {
 		return this.EModel;
 	}
 
-	//TODO Mateo: Agrego este método para poder probar.
+
 	public String getNameAndID() {
 		return "(" + this.name + "," + this.id + ")";
 	}
@@ -60,6 +78,29 @@ public class RoutingModelTracker {
 
 	public void setExit(OutputPort exit) {
 		this.exit = exit;
+	}
+	
+	/*
+	 * Este método debería tomar los datos como argumento y generar el evento que se manda desde
+	 * este modelo hacia todos los demas (con todo lo que implica).
+	 */
+	public void sendingOutputEvent(int sourceID, String eventType, int[] destinationsID) {
+		Optional<RoutingModelTracker> source = this.NModel.getEntities().stream().filter(e -> (e.getId() == sourceID)).findFirst();
+		Optional<RoutingModelTracker> destination;
+		for(int d : destinationsID) {
+			destination = this.NModel.getEntities().stream().filter(e -> (e.getId() == d)).findFirst();
+			new Event(TypeEvent.valueOf(eventType), source.get().getExit(), destination.get().getEntrance());
+		}
+	}
+
+
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 }

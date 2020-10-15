@@ -1,5 +1,6 @@
 package rdevs.implementation.tracker.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import rdevs.implementation.tracker.models.RoutingModelTracker;
@@ -7,9 +8,17 @@ import rdevs.implementation.tracker.models.RoutingModelTracker;
 public class OutputPort {
 	String name;
 	RoutingModelTracker rm;
-	List<Event> events;
-	List<Coupling> couplings;//Lista de todos los coupling que salen de este puerto
+	List<Event> events = new ArrayList<>();
+	List<Coupling> couplings = new ArrayList<>();//Lista de todos los coupling que salen de este puerto
 	ExternalOutputCoupling EOC;//Registra el coupling que lo une al ExternalOutputPort 
+	
+	public List<Event> getEvents() {
+		return events;
+	}
+	
+	public void addEvent(Event e) {
+		this.events.add(e);
+	}
 	
 	public ExternalOutputCoupling getEOP() {
 		return EOC;

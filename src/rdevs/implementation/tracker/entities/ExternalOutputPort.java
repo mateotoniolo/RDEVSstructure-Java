@@ -12,7 +12,8 @@ public class ExternalOutputPort {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public ExternalOutputPort(NetworkModelTracker m) {
+	public ExternalOutputPort(String name, NetworkModelTracker m) {
+		this.name = name;
 		this.NModel= m;
 	}
 }

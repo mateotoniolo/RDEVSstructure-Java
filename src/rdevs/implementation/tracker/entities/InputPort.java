@@ -1,5 +1,6 @@
 package rdevs.implementation.tracker.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import rdevs.implementation.tracker.models.RoutingModelTracker;
@@ -7,7 +8,7 @@ import rdevs.implementation.tracker.models.RoutingModelTracker;
 public class InputPort {
 	String name;
 	RoutingModelTracker rm;
-	List<Coupling> couplings;//Lista de todos los coupling que entran a este puerto
+	List<Coupling> couplings = new ArrayList<>();//Lista de todos los coupling que entran a este puerto
 	ExternalInputCoupling EIC;//Registra el coupling que lo une al ExternalInputPort 
 	
 	public void setEIC(ExternalInputCoupling eIC) {

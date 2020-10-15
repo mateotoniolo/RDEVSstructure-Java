@@ -9,4 +9,8 @@ public class ExternalInputCoupling extends ExternalCoupling {
 		this.target = t;//
 		target.setEIC(this);//El InputPort guarda el EIC, es uno sólo
 	}
+	
+	public void showData() {
+		System.out.println(this.source.getName()+"--->"+ this.target.getName());		
+	}
 }

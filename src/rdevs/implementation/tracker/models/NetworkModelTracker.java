@@ -25,8 +25,9 @@ public class NetworkModelTracker {
 		this.name = name;
 		this.entities = new LinkedList<RoutingModelTracker>();
 		this.InternalCoupling = new LinkedList<Coupling>() ;
-		this.EIP = new ExternalInputPort(this);
-		this.EOP = new ExternalOutputPort(this);
+		this.EIP = new ExternalInputPort("External Input Port of "+this.name,this);
+		this.EOP = new ExternalOutputPort("External Output Port of "+this.name,this);
+		this.Externals = new LinkedList<ExternalCoupling>();
 	}
 	
 	public void addRoutingModelTracker(RoutingModelTracker rm) {
@@ -57,6 +58,18 @@ public class NetworkModelTracker {
 			System.out.println("-----------------------------------------");
 			em.showData();
 		}
+		System.out.println("----------------External Couplings-------------------------");
+		for(ExternalCoupling ec: this.Externals) {
+			ec.showData();
+		}
+	}
+
+	public List<RoutingModelTracker> getEntities() {
+		return entities;
+	}
+
+	public void setEntities(List<RoutingModelTracker> entities) {
+		this.entities = entities;
 	}
 	
 }

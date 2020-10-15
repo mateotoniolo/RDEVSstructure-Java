@@ -9,4 +9,8 @@ public class ExternalOutputCoupling extends ExternalCoupling {
 		this.target = t;
 		source.setEOC(this);//El OutputPort guarda el EOC, es uno sólo
 	}
+	
+	public void showData() {
+		System.out.println(this.source.getName()+"--->"+ this.target.getName());		
+	}
 }
